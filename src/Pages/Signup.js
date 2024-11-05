@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-
+import firebase from 'firebase/compat/app'
+import Firebase, {auth} from '../Firebase'
 const Signup = () => {
   const[Obj,SetObj]=useState({})
   const d =new Date()
@@ -22,18 +23,35 @@ const Signup = () => {
     return emailPattern.test(email)
 }
 
-  function Submit(e){
+  async function Submit(e){
     e.preventDefault()
     try {
       if (!Obj.Name ||! Obj.Email || !Obj.Password || !Obj.ConfirmPassword) return alert("field is empty")
        
         var response=EmailChange(Obj.Email)
         if(!response) return alert("email address is invalid")
-          console.log(Obj);
+          if(Obj.Password!==Obj.ConfirmPassword) return alert("Password not match")
+            const result= await auth.createUserWithEmailAndPassword(Obj.Email,Obj.Password)
+
+          let object={
+            Name:Obj.Name,
+            Email:Obj.Email
+          }
+          if (!object) return alert("feild is empty")
+            Firebase.child("user").child(result.user.uid).set(object,err=>{
+          if (err) return alert("something went wrong ,try again later")
+            else{
+              SetObj({})
+              object=null
+              return alert("account created successfully")
+              
+            }
           
+    })
+        
     } catch (error) {
       console.log(error);
-      alert("error occured")
+      alert("account already exist on this email")
     }
     
   }
