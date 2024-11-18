@@ -1,16 +1,22 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 const AdminHeader = () => {
 const[toggle,settoggle]=useState(false)
-const[activeIndex,setActiveIndex]=useState(null);
-const toggleAccordion = (index) => {
-  if (activeIndex === index) {
-    setActiveIndex(null); // Close the active one if clicked again
-  } else {
-    setActiveIndex(index); // Open the clicked accordion
-  }
-};
+
+const navigate=useNavigate()
+
+useEffect(function(){
+    const User=JSON.parse(localStorage.getItem("users"))
+    if(!User) return navigate("/")
+},[])
+
+function Logout(){
+    localStorage.clear()
+    window.history.replaceState(null,null,"/Login")
+    navigate("/",{replace:true})
+
+}
   return (
     <div>
         <div className="navbar-area header-one" id="navbar">
@@ -39,9 +45,9 @@ const toggleAccordion = (index) => {
                                         <Link to={'/MyAccount'} className="nav-link">My Account</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link to={'/'} className="nav-link">
+                                        <a onClick={Logout} className="nav-link">
                                             Logout
-                                        </Link>
+                                        </a>
                                     </li>
                                 </ul>
                                 <div className="others-option d-flex align-items-center"></div>

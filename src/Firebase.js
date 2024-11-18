@@ -3,14 +3,15 @@ import "firebase/compat/auth"
 import"firebase/compat/storage"
 import"firebase/compat/database"
 
-const firebaseConfig = {
-    apiKey: "AIzaSyDsXHl3S1aCA1nxMLoOQwiH20k3cIZdOYM",
-    authDomain: "blogging-project-70f2b.firebaseapp.com",
-    projectId: "blogging-project-70f2b",
-    storageBucket: "blogging-project-70f2b.firebasestorage.app",
-    messagingSenderId: "336219851924",
-    appId: "1:336219851924:web:8683380b39a4780d6e7881"
+  const firebaseConfig = {
+    apiKey: "AIzaSyBLePYU0EMgnQYZsVFAwFlkLwXYNn5qOzo",
+    authDomain: "blog-2864f.firebaseapp.com",
+    projectId: "blog-2864f",
+    storageBucket: "blog-2864f.appspot.com",
+    messagingSenderId: "1059271955070",
+    appId: "1:1059271955070:web:cb23db0712d89639813e2f"
   };
+  
   const fire=firebase.initializeApp(firebaseConfig)
   export default fire.database().ref()
   export const storage=fire.storage().ref()

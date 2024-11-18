@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import firebase from 'firebase/compat/app'
 import Firebase, {auth} from '../Firebase'
 const Signup = () => {
   const[Obj,SetObj]=useState({})
+  const [btndisable,setbtndisable]=useState(false)
+  const navigate=useNavigate()
   const d =new Date()
   const date=`${d.getDate()}-${d.getMonth()+1}-${d.getFullYear()}`
 
@@ -23,29 +25,29 @@ const Signup = () => {
     return emailPattern.test(email)
 }
 
-  async function Submit(e){
-    e.preventDefault()
+  async function Submit(e){ 
     try {
+      e.preventDefault()
+      setbtndisable(true)
       if (!Obj.Name ||! Obj.Email || !Obj.Password || !Obj.ConfirmPassword) return alert("field is empty")
        
         var response=EmailChange(Obj.Email)
         if(!response) return alert("email address is invalid")
           if(Obj.Password!==Obj.ConfirmPassword) return alert("Password not match")
-            const result= await auth.createUserWithEmailAndPassword(Obj.Email,Obj.Password)
 
-          let object={
-            Name:Obj.Name,
-            Email:Obj.Email
-          }
-          if (!object) return alert("feild is empty")
-            Firebase.child("user").child(result.user.uid).set(object,err=>{
-          if (err) return alert("something went wrong ,try again later")
-            else{
-              SetObj({})
-              object=null
-              return alert("account created successfully")
-              
+            const object={
+              Name:Obj.Name,
+              Email:Obj.Email
             }
+
+            const result= await auth.createUserWithEmailAndPassword(Obj.Email,Obj.Password)
+            // console.log(result.user.uid);
+            
+          SetObj({})
+          
+           Firebase.child("users").child(result.user.uid).set(object,err=>{
+          if (err) return alert("something went wrong ,try again later")
+            else return alert("account created successfully")
           
     })
         
@@ -53,7 +55,14 @@ const Signup = () => {
       console.log(error);
       alert("account already exist on this email")
     }
+    finally{
+      setbtndisable(false)
+    }
     
+  }
+
+  function login (){
+    navigate("/Login")
   }
 
   return (
@@ -88,8 +97,8 @@ const Signup = () => {
         <div className="form-group">
           <input type="password" name='ConfirmPassword' value={Obj.ConfirmPassword?Obj.ConfirmPassword:""} onChange={set} placeholder="Confirm Password" />
         </div>
-        <button type="submit" onClick={Submit} className="btn-two w-100 d-block">Create Account</button>
-        <p className="login-text">Already have an account?<a href="login.html">Login</a></p>
+        <button disabled={btndisable} type="submit" onClick={Submit} className="btn-two w-100 d-block">Create Account</button>
+        <p className="login-text" onClick={login}>Already have an account?<a>Login</a></p>
       </form>
     </div>
   </div>

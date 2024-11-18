@@ -10,26 +10,26 @@ const AddBlogComp = () => {
                             <form action="#" className="checkout-form">
                                 <div className="row">
                                     <div className="col-lg-12">
-                                        <h3 className="checkout-box-title">Billing Details</h3>
+                                        <h3 className="checkout-box-title">Add your Blogs</h3>
                                     </div>
                                     <div className="col-lg-6">
                                         <div className="form-group">
-                                            <input type="text" name="fname" id="fname" placeholder="First Name" required />
+                                            <input type="text" name="Title"  placeholder="Title" required />
                                         </div>
                                     </div>
                                     <div className="col-lg-6">
                                         <div className="form-group">
-                                            <input type="text" name="lname" id="lname" placeholder="Last Name" required />
+                                            <input type="text" name="Author" placeholder="Author Name" required />
                                         </div>
                                     </div>
                                     <div className="col-lg-12">
                                         <div className="form-group">
-                                            <input type="email" name="email" id="email" placeholder="Email" required />
+                                            <input type="text" name="Heading" placeholder="Heading" required />
                                         </div>
                                     </div>
                                     <div className="col-lg-12">
                                         <div className="form-group">
-                                            <input type="number" name="phone" id="phone" placeholder="Phone Number" required />
+                                            <textarea name='Description' placeholder='Description'></textarea>
                                         </div>
                                     </div>
                                     <div className="col-lg-12">
@@ -37,46 +37,18 @@ const AddBlogComp = () => {
                                             <input type="text" name="company_name" id="company_name" placeholder="Company Name" />
                                         </div>
                                     </div>
+                        
+                                        <button>Create Sub-Heading</button>
+
+
                                     <div className="col-lg-6">
                                         <div className="form-group">
-                                            <select name="select_country" id="select_country">
-                                                <option value={0} data-display="Country">Country</option>
-                                                <option>Country</option>
-                                                <option value={1}>United States</option>
-                                                <option value={1}>Germany</option>
-                                                <option value={1}>Russia</option>
-                                            </select>
+                                            <input type="text" name="Sub Heading" placeholder="Sub Heading" />
                                         </div>
                                     </div>
                                     <div className="col-lg-6">
                                         <div className="form-group">
-                                            <select name="select_country2" id="select_country2">
-                                                <option value={0} data-display="City">State</option>
-                                                <option value={1}>New York</option>
-                                                <option value={1}>Florida</option>
-                                                <option value={1}>Los Angels</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="col-lg-6">
-                                        <div className="form-group">
-                                            <select name="select_country3" id="select_country3">
-                                                <option>City</option>
-                                                <option value={0} data-display="City">City</option>
-                                                <option value={1}>New York</option>
-                                                <option value={2}>Florida</option>
-                                                <option value={3}>Los Angels</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="col-lg-6">
-                                        <div className="form-group">
-                                            <input type="text" name="street" id="street" placeholder="Street" />
-                                        </div>
-                                    </div>
-                                    <div className="col-lg-12">
-                                        <div className="form-group">
-                                            <input type="text" name="zip" id="zip" placeholder="ZIP Code" required />
+                                            <input type="text" name="Sub Heading Description" placeholder="Sub Heading Description" required />
                                         </div>
                                     </div>
                                     <div className="col-lg-12">
