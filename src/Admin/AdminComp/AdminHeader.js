@@ -14,7 +14,7 @@ useEffect(function(){
 function Logout(){
     localStorage.clear()
     window.history.replaceState(null,null,"/Login")
-    navigate("/",{replace:true})
+    return navigate("/",{replace:true})
 
 }
   return (

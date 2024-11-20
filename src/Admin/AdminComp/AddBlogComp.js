@@ -14,8 +14,10 @@ const AddBlogComp = () => {
     const image = useRef()
     const multipleimages = useRef()
     const navigate=useNavigate()
+    const date=new Date()
+
     const set = (event) => {
-        setobj({ ...obj, [event.target.name]: event.target.value })
+        setobj({ ...obj, [event.target.name]: event.target.value,"Date":date })
     }
     const Create = () => {
         if (inputs.length < 5) {
@@ -140,7 +142,7 @@ const AddBlogComp = () => {
                 if (err) return alert("Error Ocurred in saving ")
                 else return alert("Blog Uploaded")
             })
-            setTimeout(() =>navigate("/Blogs"), 1500);
+            setTimeout(() =>navigate("/AdminBlogs"), 1500);
 
         } catch (error) {
             return alert("Something went wrong ,Try again later")

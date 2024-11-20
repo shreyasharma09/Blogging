@@ -27,7 +27,7 @@ const Login = () => {
             if(!response) return alert("email address is invalid")
 
                 const result=await auth.signInWithEmailAndPassword(obj.Email,obj.Password)
-                localStorage.setItem("users",JSON.stringify(result.user.uid))
+                localStorage.setItem("Users",JSON.stringify(result.user.uid))
                 setobj({})
                 navigate("/Admin")
 
