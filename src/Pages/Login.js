@@ -29,7 +29,7 @@ const Login = () => {
                 const result=await auth.signInWithEmailAndPassword(obj.Email,obj.Password)
                 localStorage.setItem("Users",JSON.stringify(result.user.uid))
                 setobj({})
-                navigate("/Admin")
+                navigate("/Blogs")
 
 
         } catch (error) {

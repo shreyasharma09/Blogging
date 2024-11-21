@@ -14,10 +14,9 @@ const AddBlogComp = () => {
     const image = useRef()
     const multipleimages = useRef()
     const navigate=useNavigate()
-    const date=new Date()
 
     const set = (event) => {
-        setobj({ ...obj, [event.target.name]: event.target.value,"Date":date })
+        setobj({ ...obj, [event.target.name]: event.target.value,"Date":Date.now() })
     }
     const Create = () => {
         if (inputs.length < 5) {
@@ -142,7 +141,7 @@ const AddBlogComp = () => {
                 if (err) return alert("Error Ocurred in saving ")
                 else return alert("Blog Uploaded")
             })
-            setTimeout(() =>navigate("/AdminBlogs"), 1500);
+            setTimeout(() =>navigate("/Blogs"), 1500);
 
         } catch (error) {
             return alert("Something went wrong ,Try again later")
@@ -207,11 +206,11 @@ const AddBlogComp = () => {
                                                             <span style={{ fontSize: "20px" }}>Status:</span>
                                                         </div>
                                                         <div>
-                                                            <input onClick={radiocheck} type="radio" checked={obj.Status==="Active"?true:false} id="Active" name="Status" />
+                                                            <input onClick={radiocheck} type="radio" readOnly={true} checked={obj.Status==="Active"?true:false} id="Active" name="Status" />
                                                             <label htmlFor='Active'>Active</label>
                                                         </div>
                                                         <div>
-                                                            <input onClick={radiocheck} type="radio" checked={obj.Status==="In-Active"?true:false} id="In-Active" name="Status" />
+                                                            <input onClick={radiocheck} type="radio" readOnly={true} checked={obj.Status==="In-Active"?true:false} id="In-Active" name="Status" />
                                                             <label htmlFor='In-Active'>In-Active</label>
                                                         </div>
                                                     </div>
@@ -268,7 +267,7 @@ const AddBlogComp = () => {
                                     <div className="cart-total">
                                         <div className="cart-total-wrap">
                                             <div className="cart-total-item">
-                                                <img className='img-thumbnail' height={"100%"} width={"100%"} src={headingimage ? URL.createObjectURL(headingimage) : "assets/img/download.jpg"} alt=''></img>
+                                                <img className='img-thumbnail' height={"100%"} width={"100%"} src={headingimage ? URL.createObjectURL(headingimage) : "/assets/img/download.jpg"} alt=''></img>
                                             </div>
                                             <div className="col-lg-12">
                                                 <div className="form-group">
@@ -286,7 +285,7 @@ const AddBlogComp = () => {
                                             images.map(function (Obj, index) {
                                                 return (
                                                     <div className='myimages' key={index}>
-                                                        <img src={Obj ? URL.createObjectURL(Obj) : "assets/img/download.jpg"} alt=''></img>
+                                                        <img src={Obj ? URL.createObjectURL(Obj) : "/assets/img/download.jpg"} alt=''></img>
                                                         <i onClick={() => Remove(index)}>&times;</i>
                                                     </div>
                                                 )

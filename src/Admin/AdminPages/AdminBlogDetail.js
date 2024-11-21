@@ -1,13 +1,33 @@
-import React from 'react'
+import React, { Suspense, useContext, useEffect, useState } from 'react'
 import AdminHeader from '../AdminComp/AdminHeader'
 import AdminFooter from '../AdminComp/AdminFooter'
-import AdminBlogDetailComp from '../AdminComp/AdminBlogDetailComp'
+import AdminBlogContext from '../Context/AdminBlogContext'
+import { useNavigate } from 'react-router-dom'
+const AdminBlogDetailComp=React.lazy(()=>import('../AdminComp/AdminBlogDetailComp'))
 
 const AdminBlogDetail = () => {
+  const navigate=useNavigate()
+  const[data,setdata]=useState(null)
+  const{fetchblogs}=useContext(AdminBlogContext)
+  const [current,setcurrent]=useState(null)
+  useEffect(()=>{
+    if(fetchblogs){
+      const currentblog=JSON.parse(localStorage.getItem("CurrentBlog"))
+      if(!currentblog) return navigate("/Blogs")
+        if(!fetchblogs[currentblog]) return navigate("/Blogs")
+
+          const result=Object.keys(fetchblogs).filter((key)=>key===currentblog)
+          if(result.length===0) return navigate("/Blogs")
+            setdata(fetchblogs[currentblog]);
+          setcurrent(currentblog)
+      }
+  },[fetchblogs] )
   return (
     <div>
-        <AdminHeader/>
-        <AdminBlogDetailComp/>
+        <AdminHeader blog="active"/>
+        <Suspense fallback={<div className='preloaders'><div className='loaders'></div></div>}>
+        <AdminBlogDetailComp alldata={fetchblogs} current={current} data={data}/>
+        </Suspense>
         <AdminFooter/>
     </div>
   )

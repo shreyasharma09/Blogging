@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-const AdminHeader = () => {
+const AdminHeader = (props) => {
 const[toggle,settoggle]=useState(false)
-
 const navigate=useNavigate()
-
 useEffect(function(){
-    const User=JSON.parse(localStorage.getItem("users"))
+    const User=JSON.parse(localStorage.getItem("Users"))
     if(!User) return navigate("/")
 },[])
-
 function Logout(){
     localStorage.clear()
     window.history.replaceState(null,null,"/Login")
     return navigate("/",{replace:true})
-
 }
   return (
     <div>
@@ -36,13 +32,13 @@ function Logout(){
                             <div className="collapse navbar-collapse">
                                 <ul className="navbar-nav mx-auto">
                                     <li className="nav-item">
-                                        <Link to={'/Admin'} className="nav-link active">Our Blogs</Link>
+                                        <Link to={'/Blogs'} className={props.blog?"nav-link active":"nav-link"}>Our Blogs</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link to={'/Admin/AddBlog'} className="nav-link">Add Blog</Link>
+                                        <Link to={'/AddBlog'} className={props.addblog?"nav-link active":"nav-link"}>Add Blog</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link to={'/Admin/MyAccount'} className="nav-link">My Account</Link>
+                                        <Link to={'/MyAccount'} className={props.myaccount?"nav-link active":"nav-link"}>My Account</Link>
                                     </li>
                                     <li className="nav-item">
                                         <a onClick={Logout} className="nav-link">
