@@ -1,11 +1,18 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const AdminBlogDetailComp = (props) => {
+    const navigate= useNavigate()
     const GetDate = (date) => {
         if (!date) return "---"
         const d = new Date(date)
-        return (`${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}}`)
+        return (`${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`)
     }
+    const openblog = (key) => {
+        localStorage.setItem("CurrentBlog", JSON.stringify(key))
+        navigate("/AdminBlogDetail",{replace:true})
+        props.fun(key)
+      }
     return (
         <div className="news-details-wrap ptb-100">
             <div className="container">
@@ -18,7 +25,7 @@ const AdminBlogDetailComp = (props) => {
                             </div>
                             <ul className="news-metainfo list-style">
                                 <li><i className="fi fi-rr-calendar-minus" /><a>{GetDate(props?.data?.Date)}</a></li>
-                                <li><i className="fi fi-user" />{props?.data?.Author}</li>
+                                <li><i className="fi fi-rr-user" />By---{props?.data?.Author}</li>
                             </ul>
                             <div className="news-para">
                                 <h1>{props?.data?.Heading}</h1>
@@ -37,7 +44,6 @@ const AdminBlogDetailComp = (props) => {
                                     })
                                 }
                             </div>
-
                             {
                                 props?.data?.SubHeadingsData?.map(function (obj, index) {
                                     return (
@@ -50,15 +56,15 @@ const AdminBlogDetailComp = (props) => {
                             }
                         </article>
                         <div className="post-pagination">
-                            <a className="prev-post" href="business-details.html">
+                                {props?.previous? <a onClick={()=>openblog(props.previous)} className='prev-post'> 
                                 <span>PREVIOUS</span>
-                                <h6>The Future Of Business: Predictions And Trends To Watch</h6>
-                            </a>
-                            <a className="next-post" href="business-details.html">
-                                <span>NEXT</span>
-                                <h6>From Start-up To Scale-up: Navigating Growth In Your Business</h6>
-                            </a>
-                        </div>
+                                <h6>{props.alldata[props.previous].Title}</h6>
+                           </a>:<a></a> }
+                           {props?.next && <a onClick={()=>openblog(props.next)} className='next-post'> 
+                           <span>NEXT</span>
+                                <h6>{props.alldata[props.next].Title}</h6>
+                           </a>}
+                            </div>
                         <h3 className="comment-box-title">3 Comments</h3>
                         <div className="comment-item-wrap">
                             <div className="comment-item">
@@ -146,7 +152,7 @@ const AdminBlogDetailComp = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <div id="cmt-form">
+                        {/* <div id="cmt-form">
                             <div className="mb-30">
                                 <h3 className="comment-box-title">Leave A Comment</h3>
                                 <p>Your email address will not be published. Required fields are marked.</p>
@@ -181,7 +187,7 @@ const AdminBlogDetailComp = (props) => {
                                     </div>
                                 </div>
                             </form>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="col-lg-4">
                         <div className="sidebar">
@@ -189,8 +195,8 @@ const AdminBlogDetailComp = (props) => {
                                 <h3 className="sidebar-widget-title">Recent Posts</h3>
                                 <div className="pp-post-wrap">
                                     {
-                                        (props?.alldata && props?.current) ? Object.keys(props.alldata).map((key, index) => {
-                                            if (key !== props.current) {
+                                        (props?.alldata && props?.current) ? Object.keys(props.alldata).reverse().map((key, index) => {
+                                            if (key !== props.current && index<10) {
                                                 const date = new Date(props?.alldata[key]?.Date)
                                                 return (
                                                     <div key={index} className="news-card-one">
@@ -213,17 +219,13 @@ const AdminBlogDetailComp = (props) => {
                             <div className="sidebar-widget">
                                 <h3 className="sidebar-widget-title">Popular Tags</h3>
                                 <ul className="tag-list list-style">
-                                    <li><a href="news-by-tags.html">BUSINESS</a></li>
-                                    <li><a href="news-by-tags.html">FOOD</a></li>
-                                    <li><a href="news-by-tags.html">SCIENCE</a></li>
-                                    <li><a href="news-by-tags.html">LIFESTYLE</a></li>
-                                    <li><a href="news-by-tags.html">SPORTS</a></li>
-                                    <li><a href="news-by-tags.html">PHOTO</a></li>
-                                    <li><a href="news-by-tags.html">TECHNOLOGY</a></li>
-                                    <li><a href="news-by-tags.html">CONTENT</a></li>
-                                    <li><a href="news-by-tags.html">FEATURED</a></li>
-                                    <li><a href="news-by-tags.html">AUDIO</a></li>
-                                    <li><a href="news-by-tags.html">FASHION</a></li>
+                                    {
+                                        props?.data && props.data.Tags.split(",").map((tag,index)=>{
+                                            return(
+                                                <li key={index}><a href="#">{tag}</a></li>
+                                            )
+                                        })
+                                    }
                                 </ul>
                             </div>
                         </div>

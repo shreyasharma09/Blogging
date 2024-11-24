@@ -6,7 +6,7 @@ import AuthorDetailsComp from '../Components/AuthorComponent/AuthorDetailsComp'
 const AuthorDetails = () => {
     return (
         <div>
-            <Header />
+            <Header authordetails="active" />
             <AuthorDetailsComp />
             <Footer />
         </div>

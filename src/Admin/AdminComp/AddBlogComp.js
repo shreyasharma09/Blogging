@@ -116,7 +116,7 @@ const AddBlogComp = () => {
 
             //    img=>storage text(obj)=>database              url of img in storage will be store in realtime to show the img andc collect all in one place
 
-            const fileRef = storage.child(headingimage.name)
+            const fileRef = storage.child(Date.now()+headingimage.name)
             await fileRef.put(headingimage)
             const url = await fileRef.getDownloadURL()
             const path = fileRef.fullPath                    //to delete the img 
@@ -128,7 +128,7 @@ const AddBlogComp = () => {
             if (images.length > 0) {
                 let myarray=[]
                 for (let j = 0; j < images.length; j++) {
-                  const fileRefs=storage.child(images[j].name)  
+                  const fileRefs=storage.child(Date.now()+images[j].name)  
                   await fileRefs.put(images[j]) 
                   const urls=await fileRefs.getDownloadURL()
                   const paths=fileRefs.fullPath

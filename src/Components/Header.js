@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const Header = () => {
+const Header = (props) => {
 const[toggle,settoggle]=useState(false)
 const[activeIndex,setActiveIndex]=useState(null);
 const toggleAccordion = (index) => {
@@ -30,19 +30,19 @@ const toggleAccordion = (index) => {
                             <div className="collapse navbar-collapse">
                                 <ul className="navbar-nav mx-auto">
                                     <li className="nav-item">
-                                        <Link to={'/'} className="nav-link active">Home</Link>
+                                        <Link to={'/'}className={props.home?"nav-link active":"nav-link"} >Home</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link to={'/Blog'} className="nav-link">Latest Blogs</Link>
+                                        <Link to={'/Blog'} className={props.blog?"nav-link active":"nav-link"}>Latest Blogs</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link to={'/Author'} className="nav-link">Authors</Link>
+                                        <Link to={'/Author'}className={props.author?"nav-link active":"nav-link"}>Authors</Link>
                                     </li>
                                     <li className="nav-item">
                                         <Link className="dropdown-toggle nav-link">Pages</Link>
                                         <ul className="dropdown-menu">
-                                            <li className="nav-item"><Link to={'/Privacy'} className="nav-link">Privacy Policy</Link></li>
-                                            <li className="nav-item"><Link to={'/TermsandCondition'} className="nav-link">Terms &amp; Conditions</Link></li>
+                                            <li className="nav-item"><Link to={'/Privacy'} className={props.privacy?"nav-link active":"nav-link"}>Privacy Policy</Link></li>
+                                            <li className="nav-item"><Link to={'/TermsandCondition'} className={props.termsandcondition?"nav-link active":"nav-link"}>Terms &amp; Conditions</Link></li>
                                             <li className="nav-item"><Link to={'/Signup'} className="nav-link">Sign Up</Link></li>
                                         </ul>
                                     </li>
@@ -116,7 +116,7 @@ const toggleAccordion = (index) => {
                         </div>
                         <div className="others-option d-flex d-lg-none align-items-center">
                             <div className="option-item">
-                                <Link to={'/Login'} className="btn-two">Sign In</Link>
+                                <Link to={'/Login'}  className="btn-two">Sign In</Link>
                             </div>
                         </div>
                     </div>
@@ -126,3 +126,4 @@ const toggleAccordion = (index) => {
 }
 
 export default Header
+{/* <Link to={'/Blogs'} className={props.blog?"nav-link active":"nav-link"}>Our Blogs</Link> */}

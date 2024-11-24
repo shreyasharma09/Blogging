@@ -10,7 +10,7 @@ import Newsletter from '../Components/Newsletter'
 const Home = () => {
     return (
         <div>
-            <Header/>
+            <Header home="active"/>
             <TrendingNow/>
             <HomeBlog/>
             <HomeLatestBlog/>

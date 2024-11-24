@@ -6,7 +6,7 @@ import Footer from '../Components/Footer'
 const Author = () => {
   return (
     <div>
-      <Header/>
+      <Header author="active"/>
       <Authorcomp/>
       <Footer/>
     </div>
