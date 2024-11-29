@@ -1,14 +1,61 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Firebase, { storage } from '../../Firebase'
+import { useNavigate } from 'react-router-dom'
 
-const MyAccountcomp = () => {
+const MyAccountcomp = (props) => {
+  const[image,setimage]=useState(null)
+  const[btndisable,setbtndisable]=useState(false)
+  const navigate=useNavigate()
+
+  const upload=(event)=>{
+    const file=event.target.files[0]
+    if(!file) return alert("Image is not uploaded yet.")
+
+    const ext=file.type.split("/")
+    if(ext[0]!=="image") return alert("Only image is supported")
+    
+    if(ext[1]==="png" || ext[1]==="jpg" || ext[1]==="jpeg" || ext[1]==="PNG"){
+       return setimage(file)
+    }
+    return alert("Only png,jpeg and jpg image is supported")  
+}
+const submit=async(e)=>{
+  try {
+    e.preventDefault()
+    setbtndisable(true)
+    if(!image) return alert("Upload your ProfileImage first")
+      const user=JSON.parse(localStorage.getItem("Users"))
+      if(!user){
+          alert("Unauthorised user")
+          window.history.replaceState(null,null,"/Login")
+          return navigate("/",{replace:true})
+      }
+      // uploading profile image in storage
+    const fileRef= storage.child(Date.now()+image.name)
+      await fileRef.put(image)
+      const url=await fileRef.getDownloadURL()
+      const path=fileRef.fullPath
+      const object={url,path}
+      //  updating user details in realtime database
+      Firebase.child("Users").child(user).update({ProfileImage:object},err=>{
+        if(err) return alert("Something went wrong. Try again later")
+        else return alert("User Updated")
+      })
+  } catch (error) {
+    return alert("Something Went Wrong. Try again later")
+  } 
+    finally{
+    setbtndisable(false)
+    setimage({})
+  }
+}
   return (
     <div>
       <div className="author-wrap">
-    <div className="container">
+      {props.user.ProfileImage? <div className="container">
       <div className="author-box">
         <div className="author-img">
-          <img alt="Image" data-cfsrc="assets/img/author/single-author.jpg" style={{display: 'none', visibility: 'hidden'}} /><noscript>&lt;img src="assets/img/author/single-author.jpg"
-            alt="Image"&gt;</noscript>
+          <img alt="Image" src="assets/img/author/single-author.jpg" style={{display: 'none', visibility: 'hidden'}} />
         </div>
         <div className="author-info">
           <h4>Scarlett Emily</h4>
@@ -31,7 +78,32 @@ const MyAccountcomp = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div>: <div className="container">
+      <div style={{display:"flex", justifyContent:"space-around"}} className="author-box">
+        <div style={{display:"flex", alignItems:"center",height:"240px"}} className="author-img">
+          <img alt="Image" src={image?URL.createObjectURL(image):"assets/img/download.jpg"}/>
+        </div>
+        <div className="author-info" style={{border:"0px"}}  >
+        <form action="#" className="checkout-form" style={{border:"0px"}} >
+                                <div className="row">
+                                    <div className="col-lg-12">
+                                        <h3 className="checkout-box-title">Add your ProfileImage</h3>
+                                    </div>
+                                    <div style={{width:"100%"}} className="col-lg-6">
+                                        <div className="form-group">
+                                            <input type="file" style={{height:"63px"}} onChange={upload} required />
+                                        </div>
+                                    </div>
+                                    <div className="col-lg-12 mt-4">
+                                        <div className="form-group mb-0">
+                                            <button type="submit" disabled={btndisable} onClick={submit} className="btn-one">Submit<i className="flaticon-right-arrow" /></button>
+                                        </div>
+                                    </div>
+                                </div>
+          </form>
+        </div>
+      </div>
+    </div>}
       </div>
       <div className="popular-news-three ptb-100">
     <div className="container">

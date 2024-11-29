@@ -158,12 +158,11 @@ const AddBlogComp = () => {
     }
 
     return (
-        <div>
-            {
-                loader&&<div className='preloaders'><div className='loaders'></div></div>
-            }
             <div className="checkout-wrap ptb-100">
                 <div className="container">
+                 {
+                     loader&&<div className='preloaders'><div className='loaders'></div></div>
+                 }
                     <div className="row">
                         <div className="col-xxl-8 col-xl-7 col-lg-7">
                             <form action="#" className="checkout-form">
@@ -310,7 +309,7 @@ const AddBlogComp = () => {
                 </div>
             </div>
 
-        </div>
+        
     )
 }
 
