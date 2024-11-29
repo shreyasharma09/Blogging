@@ -19,12 +19,7 @@ const AddBlogComp = () => {
         setobj({ ...obj, [event.target.name]: event.target.value,"Date":Date.now() })
     }
     const Create = () => {
-        if (inputs.length < 5) {
             setinputs(inputs => [...inputs, { id: inputs.length + 1 }])
-        }
-        else {
-            alert("no more inputs")
-        }
     }
     // console.log(inputs);
     const radiocheck = (event) => {

@@ -18,7 +18,7 @@ const UserRoute = () => {
                     })
                 })
                 array.sort((a, b) => b.Date - a.Date)                   //latest blogs nikal rhe h 
-                const newarray = array.slice(0, 10)                    //top 10 blogs
+                const newarray = array.slice(0, 12)                    //top 12 blogs
                 setstate(newarray)
                 let resultingarray = []
                 newarray.map((obj) => {
@@ -26,7 +26,7 @@ const UserRoute = () => {
                         resultingarray = [...resultingarray, ...obj.Images]
                     }
                 })
-                const myarray = resultingarray.slice(0, 15)             // 16 images utha li
+                const myarray = resultingarray.slice(0, 15)             // 15 images utha li
                 setimages(myarray)
             }
             else {

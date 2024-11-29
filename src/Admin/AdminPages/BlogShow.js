@@ -18,7 +18,6 @@ const BlogShow = () => {
        const newcate=array[i]                                                               //newcate m individual categories ko rkhva dia
        
       let count=0
-   
        for(let j=0;j<resultingarray.length;j++){
          if(fetchblogs[resultingarray[j]].Category==newcate){
            count++
@@ -32,6 +31,7 @@ const BlogShow = () => {
       } 
       setcategory(finalarray);
      }
+    //  else setcategory([])
    },[fetchblogs])
     
   
