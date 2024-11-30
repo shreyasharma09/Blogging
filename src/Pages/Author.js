@@ -1,13 +1,17 @@
-import React from 'react'
+import React, { Suspense, useContext } from 'react'
 import Header from '../Components/Header'
-import Authorcomp from '../Components/AuthorComponent/Authorcomp'
 import Footer from '../Components/Footer'
-
+import UserContext from './Context/UserContext'
+const Authorcomp=React.lazy(()=>import ('../Components/AuthorComponent/Authorcomp'))
 const Author = () => {
+  const {users,loading}=useContext(UserContext)
   return (
     <div>
       <Header author="active"/>
-      <Authorcomp/>
+      {loading && <div className='preloaders'><div className='loaders'></div></div>}
+      <Suspense fallback={<div className='preloaders'><div className='loaders'></div></div>}>
+      <Authorcomp users={users}/>
+      </Suspense>
       <Footer/>
     </div>
   )

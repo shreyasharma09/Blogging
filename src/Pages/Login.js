@@ -1,28 +1,22 @@
 import React,{useState} from 'react'
 import { Link ,useNavigate} from 'react-router-dom'
 import {auth} from '../Firebase'
-
 const Login = () => {
     const [obj,setobj]=useState({})
     const[btndisable,setbtndisable]=useState(false)
     const navigate=useNavigate()
-
     const set=(event)=>{
         setobj({...obj,[event.target.name]:event.target.value})
     }
-
     function EmailChange(email){
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailPattern.test(email)
     }
-
     const submit=async(e)=>{
         try {
             e.preventDefault()
             setbtndisable(true)
-
             if(!obj.Email || !obj.Password) return alert("field is empty")
-
             const response=EmailChange(obj.Email)
             if(!response) return alert("email address is invalid")
 
@@ -30,24 +24,20 @@ const Login = () => {
                 localStorage.setItem("Users",JSON.stringify(result.user.uid))
                 setobj({})
                 navigate("/Blogs")
-
-
         } catch (error) {
             return alert("invalid credentials")
         }
         finally{
             setbtndisable(false)
         }
-       
     }
-
     return (
         <div className="login-wrap">
                 <div className="login-bg">
-                    <a href="index.html" className="navbar-brand">
+                    <Link to="/" className="navbar-brand">
                         <img className="logo-light" src="assets/img/logo-white.webp" alt="Image" />
                         <img className="logo-dark" src="assets/img/logo-white.webp" alt="Image" />
-                    </a>
+                    </Link>
                 </div>
                 <div className="login-content">
                     <Link to={'/'} className="link-one"><i className="ri-arrow-left-s-line" />Back</Link>

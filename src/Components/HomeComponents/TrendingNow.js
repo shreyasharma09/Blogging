@@ -58,7 +58,7 @@ const TrendingNow = (props) => {
                                                         <SwiperSlide>
                                                             <div className=" news-card-one">
                                                                 <div className="news-card-img">
-                                                                    <img style={{height:"100px",width:"110px",borderRadius:"50%"}} src={obj?.HeadingImage?.url?obj?.HeadingImage?.url:"assets/img/news/trending-4.webp"} alt="Image" />
+                                                                    <img loading='lazy' style={{ height: "100px", width: "110px", borderRadius: "50%" }} src={obj?.HeadingImage?.url ? obj?.HeadingImage?.url : "assets/img/news/trending-4.webp"} alt="Image" />
                                                                 </div>
                                                                 <div className="news-card-info">
                                                                     <h3><a href="#">{obj.Title}</a></h3>

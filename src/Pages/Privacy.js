@@ -6,7 +6,7 @@ import Footer from '../Components/Footer'
 const Privacy = () => {
   return (
     <div>
-        <Header privacy="active"/>
+        <Header page="active"/>
         <Privacycomp/>
         <Footer/>
     </div>

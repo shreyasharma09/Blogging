@@ -6,7 +6,7 @@ import Footer from '../Components/Footer'
 const TermsandCondition = () => {
   return (
     <div>
-        <Header termsandcondition="active"/>
+        <Header page="active"/>
         <TermsComp/>
         <Footer/>
     </div>
