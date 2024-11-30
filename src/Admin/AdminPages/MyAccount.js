@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import AdminHeader from '../AdminComp/AdminHeader'
 import AdminFooter from '../AdminComp/AdminFooter'
-import MyAccountcomp from '../AdminComp/MyAccountcomp'
 import { useNavigate } from 'react-router-dom'
 import Firebase from '../../Firebase'
+const MyAccountcomp =React.lazy(()=>import  ('../AdminComp/MyAccountcomp'))
 
 const MyAccount = () => {
   const[userdetails,setuserdetails]=useState({})
@@ -23,7 +23,9 @@ const MyAccount = () => {
   return (
     <div>
       <AdminHeader myaccount="active"/>
+      <Suspense fallback={<div className='preloaders'><div className="loaders"></div></div>}>
       <MyAccountcomp user={userdetails}/>
+      </Suspense>
       <AdminFooter/>
     </div>
   )
