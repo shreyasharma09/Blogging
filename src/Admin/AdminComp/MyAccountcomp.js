@@ -55,7 +55,7 @@ const MyAccountcomp = (props) => {
         {props.user.ProfileImage ? <div className="container">
           <div className="author-box">
             <div className="author-img">
-              <img loading='lazy' alt="Image" src={props?.user?.ProfileImage?.url ? props?.user?.ProfileImage?.url : "assets/img/author/single-author.jpg"} />
+              <img loading='lazy' alt="Image" src={props?.user?.ProfileImage?.url ? props?.user?.ProfileImage?.url : "assets/img/Bharat.png"} />
             </div>
             <div style={{ marginLeft: "100px" }} className="author-info">
               <h4>{props?.user?.Name}</h4>

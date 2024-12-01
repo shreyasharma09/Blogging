@@ -56,7 +56,7 @@ const TrendingNow = (props) => {
                                                 if (index < 3) {
                                                     return (
                                                         <SwiperSlide>
-                                                            <div className=" news-card-one">
+                                                            <div key={index} className=" news-card-one">
                                                                 <div className="news-card-img">
                                                                     <img loading='lazy' style={{ height: "100px", width: "110px", borderRadius: "50%" }} src={obj?.HeadingImage?.url ? obj?.HeadingImage?.url : "assets/img/news/trending-4.webp"} alt="Image" />
                                                                 </div>

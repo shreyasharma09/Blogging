@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import Firebase from '../../Firebase'
 const MyAccountcomp =React.lazy(()=>import  ('../AdminComp/MyAccountcomp'))
 
+
 const MyAccount = () => {
   const[userdetails,setuserdetails]=useState({})
   const navigate=useNavigate()
